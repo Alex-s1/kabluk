@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KABLUK_FARM</title>
+    <title>KABLUJ_FARM</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,19 +37,57 @@
     </style>
 </head>
 <body>
-    <h1>СКОЧАЛ ГОВНО</h1>
+    <h1>БЕСПЛАТНО КАБЛУКИ!</h1>
     <div class="counter">0</div>
     <button onclick="farmKabluca()">ФАРМ КАБЛУКА</button>
 
     <script>
-        // Начальное значение счетчика
+        // Получаем user_id из параметров URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('user_id');
+
+        if (!userId) {
+            alert('User ID не найден!');
+            document.querySelector('.counter').textContent = 'Ошибка!';
+            document.querySelector('button').disabled = true;
+            return;
+        }
+
         let counter = 0;
 
         // Функция для увеличения счетчика
         function farmKabluca() {
             counter++;
             document.querySelector('.counter').textContent = counter;
+
+            // Отправляем обновленное значение на сервер
+            fetch('https://your-replit-app-url/update_counter', { // Замените на ваш URL Replit
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id: userId, counter: counter })
+            }).then(response => {
+                if (!response.ok) {
+                    console.error('Ошибка при обновлении счетчика');
+                }
+            });
         }
+
+        // При загрузке страницы получаем текущее значение счетчика с сервера
+        window.onload = function() {
+            fetch(`https://your-replit-app-url/get_counter?user_id=${userId}`) // Замените на ваш URL Replit
+                .then(response => response.json())
+                .then(data => {
+                    if (data.counter !== undefined) {
+                        counter = data.counter;
+                        document.querySelector('.counter').textContent = counter;
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при получении счетчика:', error);
+                });
+        };
     </script>
 </body>
 </html>
