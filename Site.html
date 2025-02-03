@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KABLUK_FARM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .counter {
+            font-size: 48px;
+            margin: 20px 0;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>СКОЧАЛ ГОВНО</h1>
+    <div class="counter">0</div>
+    <button onclick="farmKabluca()">ФАРМ КАБЛУКА</button>
+
+    <script>
+        // Начальное значение счетчика
+        let counter = 0;
+
+        // Функция для увеличения счетчика
+        function farmKabluca() {
+            counter++;
+            document.querySelector('.counter').textContent = counter;
+        }
+    </script>
+</body>
+</html>
